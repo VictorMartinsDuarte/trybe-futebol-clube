@@ -10,7 +10,7 @@ module.exports = {
       teamName: {
         type: Sequelize.STRING,
         allowNull: false,
-        name: 'team_name',
+        field: 'team_name',
       }
     });
   },

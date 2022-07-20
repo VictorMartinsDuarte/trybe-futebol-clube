@@ -4,6 +4,6 @@ import loginValid from '../middlewares/middleLogin';
 
 const login = express.Router();
 
-login.get('/', loginValid, controllerLogin.getUserToken);
+login.post('/', loginValid, controllerLogin.getUserToken);
 
 export default login;

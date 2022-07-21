@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import func from '../utils/functions';
+import findUser from '../utils/functions';
 
 const loginValid = (req: Request, res: Response, next: NextFunction) => {
   const { email, password } = req.body;
@@ -16,7 +16,7 @@ const loginValid = (req: Request, res: Response, next: NextFunction) => {
 const loginIncorrect = async (req: Request, res: Response, next: NextFunction) => {
   const errMessage = 'Incorrect email or password';
   const { email, password } = req.body;
-  const user = await func.findUser(email);
+  const user = await findUser(email);
   if (!user) return res.status(401).json({ message: errMessage });
   if (password !== user.password) return res.status(401).json({ message: errMessage });
   next();

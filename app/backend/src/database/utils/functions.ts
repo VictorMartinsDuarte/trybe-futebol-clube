@@ -6,6 +6,4 @@ const findUser = async (email: string): Promise<IUser> => {
   return foundUser as IUser;
 };
 
-export default {
-  findUser,
-};
+export default findUser;

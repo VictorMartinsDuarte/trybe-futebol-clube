@@ -6,5 +6,6 @@ import errorHandler from '../middlewares/middleError';
 const login = express.Router();
 
 login.post('/', mid.loginValid, mid.loginIncorrect, errorHandler, controllerLogin.getUserToken);
+login.get('/validate', controllerLogin.loginValidate);
 
 export default login;

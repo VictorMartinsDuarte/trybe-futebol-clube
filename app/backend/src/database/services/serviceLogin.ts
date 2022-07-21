@@ -1,5 +1,6 @@
-import tokenJWT from '../utils/tokenJWT';
+import tokenJWT, { decodedToken } from '../utils/tokenJWT';
 import IUser from '../interfaces/iUser';
+import findUser from '../utils/functions';
 
 const getUserToken = async (userInfo: IUser): Promise<string> => {
   const { email } = userInfo;
@@ -7,6 +8,13 @@ const getUserToken = async (userInfo: IUser): Promise<string> => {
   return token;
 };
 
+const loginValidate = async (token: string) => {
+  const payload = decodedToken(token);
+  const { role } = await findUser(payload.data);
+  return role;
+};
+
 export default {
   getUserToken,
+  loginValidate,
 };

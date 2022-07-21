@@ -8,10 +8,10 @@ const getUserToken = async (userInfo: IUser): Promise<string> => {
   return token;
 };
 
-const loginValidate = async (token: string) => {
+const loginValidate = async (token: string): Promise<string> => {
   const payload = decodedToken(token);
   const { role } = await findUser(payload.data);
-  return role;
+  return role as string;
 };
 
 export default {

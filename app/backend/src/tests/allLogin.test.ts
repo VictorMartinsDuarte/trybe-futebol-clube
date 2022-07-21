@@ -18,8 +18,6 @@ const { expect } = chai;
 describe('Tests on service layer for login', () => {
   describe('Tests function getUserToken', () => {
     // let chaiHttpResponse: Response;
-   
- 
     beforeEach(() => {
       sinon.stub(serviceLogin, 'getUserToken').resolves(tokenLogin as string);
     })
@@ -29,6 +27,11 @@ describe('Tests on service layer for login', () => {
     })
     
     it ('Return the token from user', async () => {
+      const response = await serviceLogin.getUserToken(userLogin);
+      expect(response).to.be.an('string');
+      
+      const { email } = userLogin;
+      expect(await tokenJWT(email)).to.be.an('string');
       // chaiHttpResponse = await chai.request(app)
       //   .post('/login').type('form').send(userLogin)
       //   .then(function (getUserToken) {
@@ -38,11 +41,6 @@ describe('Tests on service layer for login', () => {
       //     throw err;
       //   });
       // Ref: https://www.chaijs.com/plugins/chai-http/
-      const response = await serviceLogin.getUserToken(userLogin);
-      expect(response).to.be.an('string');
-
-      const { email } = userLogin;
-      expect(await tokenJWT(email)).to.be.an('string');
     })
   });
 });

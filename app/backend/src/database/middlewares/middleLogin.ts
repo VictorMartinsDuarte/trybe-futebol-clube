@@ -2,7 +2,8 @@ import { Request, Response, NextFunction } from 'express';
 
 const loginValid = (req: Request, res: Response, next: NextFunction) => {
   const { email, password } = req.body;
-  const emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i;
+  const emailRegex = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+  console.log(emailRegex.test(email));
   if (!emailRegex.test(email)) return res.status(401).json({ message: 'Invalid "email"' });
   if (password.length <= 6) {
     return res.status(401)

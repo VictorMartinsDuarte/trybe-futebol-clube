@@ -1,4 +1,7 @@
 import * as jwt from 'jsonwebtoken';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 const JWT_CONFIG: jwt.SignOptions = {
   expiresIn: '1h',

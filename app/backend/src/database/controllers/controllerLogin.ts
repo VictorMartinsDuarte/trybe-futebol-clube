@@ -6,7 +6,7 @@ const getUserToken = async (req: Request, res: Response, next: NextFunction) => 
     const userToken = await serviceLogin.getUserToken(req.body);
     return res.status(200).json({ userToken });
   } catch (error) {
-    next(error);
+    next({ status: 500, message: 'Request failed' });
   }
 };
 

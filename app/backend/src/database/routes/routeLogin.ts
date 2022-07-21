@@ -1,9 +1,10 @@
 import * as express from 'express';
 import controllerLogin from '../controllers/controllerLogin';
-import loginValid from '../middlewares/middleLogin';
+import mid from '../middlewares/middleLogin';
+import errorHandler from '../middlewares/middleError';
 
 const login = express.Router();
 
-login.post('/', loginValid, controllerLogin.getUserToken);
+login.post('/', mid.loginValid, mid.loginIncorrect, errorHandler, controllerLogin.getUserToken);
 
 export default login;

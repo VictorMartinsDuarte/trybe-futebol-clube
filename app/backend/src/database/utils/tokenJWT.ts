@@ -4,7 +4,7 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 const JWT_CONFIG: jwt.SignOptions = {
-  expiresIn: '12h',
+  expiresIn: '1d',
   algorithm: 'HS256',
 };
 

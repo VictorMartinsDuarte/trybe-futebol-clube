@@ -5,10 +5,13 @@ import chaiHttp = require('chai-http');
 
 // import { app } from '../app';
 // import { Response } from 'superagent';
+import * as jwt from 'jsonwebtoken';
 import serviceLogin from '../database/services/serviceLogin';
 import controllerLogin from '../database/controllers/controllerLogin';
-import { userToken, userLogin, userRole } from './mocks/mocksLogin';
-import tokenJWT from '../database/utils/tokenJWT';
+import { userToken, userLogin, roleMock, payloadMock } from './mocks/mocksLogin';
+import tokenJWT, { decodedToken} from '../database/utils/tokenJWT';
+// import findUser from '../database/utils/functions';
+import Users from '../database/models/Users';
 
 chai.use(chaiHttp);
 const { expect } = chai;
@@ -39,6 +42,24 @@ describe('Tests on service layer for login', () => {
       //     throw err;
       //   });
       // Ref: https://www.chaijs.com/plugins/chai-http/
+    })
+  });
+  describe('Tests function loginValidate', () => {
+    beforeEach(() => {
+      sinon.stub(serviceLogin, 'loginValidate').resolves(roleMock);
+      // sinon.stub(jwt, 'verify').resolves(payloadMock);
+      // sinon.stub(Users, 'findOne').resolves();
+    })
+    
+    afterEach(() => {
+      (serviceLogin.loginValidate as sinon.SinonStub).restore();
+    })
+    
+    it ('Returns the response 200 and role from user in json', async () => {
+      // const { data } = decodedToken(userToken);
+      const response = await serviceLogin.loginValidate(userToken);
+      expect(response).to.be.an(roleMock as string);
+      // expect(data).to.have('email');
     })
   });
 });
@@ -73,15 +94,17 @@ describe('Tests on controller layer for login', () => {
     //   const response = await controllerLogin.getUserToken(req, res, next);
     //   expect(next(err)).to.redirect('object');
     // });
+  });
     describe('Tests function loginValidate', () => {
       const req = {} as any;
       const res = {} as any;
-      const next = {} as any;
+      const next: any = () => {};
   
       beforeEach(() => {
-        sinon.stub(serviceLogin, 'loginValidate').resolves(userRole);
+        sinon.stub(serviceLogin, 'loginValidate').resolves(roleMock);
         res.status = sinon.stub().returns(res);
-        res.json = sinon.stub().returns({ userRole });
+        res.json = sinon.stub().returns({ roleMock });
+        req.headers = { Authorization: userToken };
       })
   
       afterEach(() => {
@@ -93,7 +116,7 @@ describe('Tests on controller layer for login', () => {
         expect(response).to.be.an('object');
         expect(res.status.calledWith(200)).to.equal(true);
       })
-  });
+    });
    // describe('Tests on middleware for login', () => {
   //   describe('Tests function loginValid', () => {
   //     const req = {} as any;
@@ -114,5 +137,4 @@ describe('Tests on controller layer for login', () => {
   //     })
   //   });
   // });
- });
 });

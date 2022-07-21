@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import findUser from '../utils/functions';
+import { decodedToken } from '../utils/tokenJWT';
 
 const loginValid = (req: Request, res: Response, next: NextFunction) => {
   const { email, password } = req.body;
@@ -15,8 +16,8 @@ const loginValid = (req: Request, res: Response, next: NextFunction) => {
 
 const loginIncorrect = async (req: Request, res: Response, next: NextFunction) => {
   const errMessage = 'Incorrect email or password';
-  const { email, password } = req.body;
-  const user = await findUser(email);
+  const payload = decodedToken(req.headers.authorization as string);
+  const user = await findUser(payload.data);
   if (!user) return res.status(401).json({ message: errMessage });
   if (password !== user.password) return res.status(401).json({ message: errMessage });
   next();

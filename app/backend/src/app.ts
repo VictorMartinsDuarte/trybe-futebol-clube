@@ -12,7 +12,7 @@ class App {
     this.config();
 
     this.app.use(router);
-    
+
     this.app.use(errorHandler);
 
     // Não remover essa rota

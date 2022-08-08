@@ -1,10 +1,10 @@
 export enum ErrorTypes {
-  EmptyEmail = 'EmptyEmail',
-  InvalidEmail = 'InvalidEmail',
-  PasswordLength = 'PasswordLength',
-  IncorrectLogin = 'IncorrectLogin',
+  emptyEmail = 'emptyEmail',
+  invalidEmail = 'invalidEmail',
+  passwordLength = 'passwordLength',
+  incorrectLogin = 'incorrectLogin',
   // InvalidToken = 'InvalidToken',
-};
+}
 
 type ErrorResponseObj = {
   message: string;
@@ -16,19 +16,19 @@ export type ErrorCatalog = {
 };
 
 export const errorCatalog: ErrorCatalog = {
-  EmptyEmail: {
+  emptyEmail: {
     message: 'All fields must be filled',
     httpStatus: 400,
   },
-  InvalidEmail: {
+  invalidEmail: {
     message: 'Invalid email',
     httpStatus: 401,
   },
-  PasswordLength: {
+  passwordLength: {
     message: '"Password" must have at least 6 characters',
     httpStatus: 401,
   },
-  IncorrectLogin: {
+  incorrectLogin: {
     message: 'Incorrect email or password',
     httpStatus: 401,
   },

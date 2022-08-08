@@ -1,9 +1,9 @@
 export enum ErrorTypes {
-  emptyEmail = 'emptyEmail',
+  emptyFields = 'emptyFields',
   invalidEmail = 'invalidEmail',
   passwordLength = 'passwordLength',
   incorrectLogin = 'incorrectLogin',
-  // InvalidToken = 'InvalidToken',
+  emptyAuth = 'emptyAuth',
 }
 
 type ErrorResponseObj = {
@@ -16,7 +16,7 @@ export type ErrorCatalog = {
 };
 
 export const errorCatalog: ErrorCatalog = {
-  emptyEmail: {
+  emptyFields: {
     message: 'All fields must be filled',
     httpStatus: 400,
   },
@@ -32,4 +32,8 @@ export const errorCatalog: ErrorCatalog = {
     message: 'Incorrect email or password',
     httpStatus: 401,
   },
+  emptyAuth: {
+    message: 'Authorization must be filled',
+    httpStatus: 400,
+  }
 };

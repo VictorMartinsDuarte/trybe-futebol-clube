@@ -5,13 +5,13 @@ import chaiHttp = require('chai-http');
 
 // import { app } from '../app';
 // import { Response } from 'superagent';
-import * as jwt from 'jsonwebtoken';
+// import * as jwt from 'jsonwebtoken';
 import serviceLogin from '../database/services/serviceLogin';
 import controllerLogin from '../database/controllers/controllerLogin';
 import { userToken, userLogin, roleMock, payloadMock } from './mocks/mocksLogin';
 import tokenJWT, { decodedToken} from '../database/utils/tokenJWT';
 // import findUser from '../database/utils/functions';
-import Users from '../database/models/Users';
+// import Users from '../database/models/Users';
 
 chai.use(chaiHttp);
 const { expect } = chai;
@@ -69,7 +69,7 @@ describe('Tests on controller layer for login', () => {
     // const err = { status: 500, message: 'Request failed' };
     const req = {} as any;
     const res = {} as any;
-    const next = {} as any;
+    // const next = {} as any;
 
     beforeEach(() => {
       sinon.stub(serviceLogin, 'getUserToken').resolves(userToken);
@@ -82,7 +82,7 @@ describe('Tests on controller layer for login', () => {
     })
     
     it ('Returns the response 200 and token from user in json', async () => {
-      const response = await controllerLogin.getUserToken(req, res, next);
+      const response = await controllerLogin.getUserToken(req, res);
       expect(response).to.be.an('string');
       expect(res.status.calledWith(200)).to.equal(true);
       // await chai.request(app).post('/login').then(res => {
@@ -98,7 +98,7 @@ describe('Tests on controller layer for login', () => {
     describe('Tests function loginValidate', () => {
       const req = {} as any;
       const res = {} as any;
-      const next: any = () => {};
+      // const next: any = () => {};
   
       beforeEach(() => {
         sinon.stub(serviceLogin, 'loginValidate').resolves(roleMock);
@@ -112,7 +112,7 @@ describe('Tests on controller layer for login', () => {
       })
       
       it ('Returns the response 200 and role from user in json', async () => {
-        const response = await controllerLogin.loginValidate(req, res, next);
+        const response = await controllerLogin.loginValidate(req, res);
         expect(response).to.be.an('object');
         expect(res.status.calledWith(200)).to.equal(true);
       })

@@ -12,8 +12,8 @@ const getUserToken = async (req: Request, res: Response, next: NextFunction) => 
 
 const loginValidate = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const token = req.headers.authorization as string;
-    const role = await serviceLogin.loginValidate(token);
+    const { authorization } = req.headers;
+    const role = await serviceLogin.loginValidate(authorization as string);
     return res.status(200).json({ role });
   } catch (error) {
     next({ status: 500, message: 'Request failed' });

@@ -9,7 +9,7 @@ const getUserToken = async (userInfo: IUser): Promise<string> => {
 };
 
 const loginValidate = async (token: string): Promise<string> => {
-  const payload = decodedToken(token);
+  const payload = await decodedToken(token);
   const { role } = await findUser(payload.data);
   return role as string;
 };

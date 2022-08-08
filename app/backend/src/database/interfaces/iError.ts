@@ -1,5 +1,5 @@
 interface IError {
-  status: number;
+  status?: number;
   message: string;
 }
 

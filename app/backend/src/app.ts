@@ -1,5 +1,7 @@
 import * as express from 'express';
 import router from './database/routes/router';
+import 'express-async-errors';
+import errorHandler from './database/middlewares/middleError';
 
 class App {
   public app: express.Express;
@@ -10,6 +12,8 @@ class App {
     this.config();
 
     this.app.use(router);
+    
+    this.app.use(errorHandler);
 
     // Não remover essa rota
     this.app.get('/', (req, res) => res.json({ ok: true }));

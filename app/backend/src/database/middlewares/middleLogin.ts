@@ -1,9 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import * as bcrypt from 'bcryptjs';
 import findUser from '../utils/functions';
-// import { decodedToken } from '../utils/tokenJWT';
 import { ErrorTypes } from '../../errors/catalog';
-// import IUser from '../interfaces/iUser';
+import 'express-async-errors';
 
 const loginValid = (req: Request, _res: Response, next: NextFunction) => {
   if (!req.body) throw new Error(ErrorTypes.emptyFields)

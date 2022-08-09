@@ -5,7 +5,7 @@ import { ErrorTypes } from '../../errors/catalog';
 import 'express-async-errors';
 
 const loginValid = (req: Request, _res: Response, next: NextFunction) => {
-  if (!req.body) throw new Error(ErrorTypes.emptyFields)
+  if (!req.body) throw new Error(ErrorTypes.emptyFields);
   const { email, password } = req.body;
   const emailRegex = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
   if (!email || !password) throw new Error(ErrorTypes.emptyFields);

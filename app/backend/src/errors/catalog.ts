@@ -35,5 +35,5 @@ export const errorCatalog: ErrorCatalog = {
   emptyAuth: {
     message: 'Authorization must be filled',
     httpStatus: 400,
-  }
+  },
 };

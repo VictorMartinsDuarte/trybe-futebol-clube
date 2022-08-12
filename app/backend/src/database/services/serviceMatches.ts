@@ -7,11 +7,17 @@ const getAllMatches = async (): Promise<IMatches[]> => {
     include: [
       { attributes: ['teamName'], model: Teams, as: 'teamHome' },
       { attributes: ['teamName'], model: Teams, as: 'teamAway' },
-    ]
+    ],
   });
   return allMatches as IMatches[];
 };
 
+const createMatch = async (match: IMatches): Promise<IMatches> => {
+  const newMatch = await Matches.create(match);
+  return newMatch as IMatches;
+};
+
 export default {
   getAllMatches,
+  createMatch,
 };

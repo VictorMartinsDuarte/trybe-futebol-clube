@@ -4,6 +4,7 @@ export enum ErrorTypes {
   passwordLength = 'passwordLength',
   incorrectLogin = 'incorrectLogin',
   emptyAuth = 'emptyAuth',
+  equalTeams = 'equalTeams',
 }
 
 type ErrorResponseObj = {
@@ -35,5 +36,9 @@ export const errorCatalog: ErrorCatalog = {
   emptyAuth: {
     message: 'Authorization must be filled',
     httpStatus: 400,
+  },
+  equalTeams: {
+    message: 'It is not possible to create a match with two equal teams',
+    httpStatus: 401,
   },
 };

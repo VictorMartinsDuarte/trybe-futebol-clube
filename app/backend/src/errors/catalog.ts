@@ -6,6 +6,7 @@ export enum ErrorTypes {
   emptyAuth = 'emptyAuth',
   equalTeams = 'equalTeams',
   teamDontExist = 'teamDontExist',
+  invalidToken = 'invalidToken',
 }
 
 type ErrorResponseObj = {
@@ -45,5 +46,9 @@ export const errorCatalog: ErrorCatalog = {
   teamDontExist: {
     message: 'There is no team with such id!',
     httpStatus: 404,
+  },
+  invalidToken: {
+    message: 'Token must be a valid token',
+    httpStatus: 401,
   },
 };

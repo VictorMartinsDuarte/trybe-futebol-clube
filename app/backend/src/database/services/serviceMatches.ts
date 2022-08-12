@@ -22,8 +22,14 @@ const finishMatch = async (id: number) => {
   return 'Finished';
 };
 
+const updateMatch = async (id: number, goals: Partial<IMatches>) => {
+  const updatedMatch = await Matches.update(goals, { where: { id } });
+  return updatedMatch;
+};
+
 export default {
   getAllMatches,
   createMatch,
   finishMatch,
+  updateMatch,
 };

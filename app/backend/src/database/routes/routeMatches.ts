@@ -8,5 +8,6 @@ const matches = express.Router();
 matches.get('/', controllerMatches.getAllMatches);
 matches.post('/', matchesValid, tokenValid, controllerMatches.createMatch);
 matches.patch('/:id/finish', controllerMatches.finishMatch);
+matches.patch('/:id', controllerMatches.updateMatch);
 
 export default matches;

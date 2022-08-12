@@ -1,7 +1,6 @@
 import Matches from '../models/Matches';
 import IMatches from '../interfaces/iMatches';
 import Teams from '../models/Teams';
-import { ErrorTypes } from '../../errors/catalog';
 
 const getAllMatches = async (): Promise<IMatches[]> => {
   const allMatches = await Matches.findAll({
@@ -14,8 +13,6 @@ const getAllMatches = async (): Promise<IMatches[]> => {
 };
 
 const createMatch = async (match: IMatches): Promise<IMatches> => {
-  const { homeTeam, awayTeam } = match;
-  if (homeTeam === awayTeam) throw new Error(ErrorTypes.equalTeams);
   const newMatch = await Matches.create(match);
   return newMatch as IMatches;
 };

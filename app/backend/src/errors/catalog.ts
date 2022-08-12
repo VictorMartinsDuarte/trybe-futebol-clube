@@ -5,6 +5,7 @@ export enum ErrorTypes {
   incorrectLogin = 'incorrectLogin',
   emptyAuth = 'emptyAuth',
   equalTeams = 'equalTeams',
+  teamDontExist = 'teamDontExist',
 }
 
 type ErrorResponseObj = {
@@ -40,5 +41,9 @@ export const errorCatalog: ErrorCatalog = {
   equalTeams: {
     message: 'It is not possible to create a match with two equal teams',
     httpStatus: 401,
+  },
+  teamDontExist: {
+    message: 'There is no team with such id!',
+    httpStatus: 404,
   },
 };

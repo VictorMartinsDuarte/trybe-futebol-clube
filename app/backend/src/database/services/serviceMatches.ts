@@ -17,7 +17,13 @@ const createMatch = async (match: IMatches): Promise<IMatches> => {
   return newMatch as IMatches;
 };
 
+const finishMatch = async (id: number) => {
+  await Matches.update({ inProgress: false }, { where: { id } });
+  return 'Finished';
+};
+
 export default {
   getAllMatches,
   createMatch,
+  finishMatch,
 };

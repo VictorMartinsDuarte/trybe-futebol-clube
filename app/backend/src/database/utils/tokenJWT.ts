@@ -1,5 +1,6 @@
 import * as jwt from 'jsonwebtoken';
 import * as dotenv from 'dotenv';
+import { ErrorTypes } from '../../errors/catalog';
 
 dotenv.config();
 
@@ -16,8 +17,12 @@ const tokenJWT = (email: string) => {
 };
 
 export const decodedToken = (token: string): jwt.JwtPayload => {
-  const payload = jwt.verify(token, jwtSecret);
-  return payload as jwt.JwtPayload;
+  try {
+    const payload = jwt.verify(token, jwtSecret);
+    return payload as jwt.JwtPayload;
+  } catch (error) {
+    throw new Error(ErrorTypes.invalidToken);
+  }
 };
 
 export default tokenJWT;

@@ -5,10 +5,7 @@ import { decodedToken } from '../utils/tokenJWT';
 
 const tokenValid = (req: Request, _res: Response, next: NextFunction) => {
   const { authorization } = req.headers;
-  console.log(authorization);
-  const token = decodedToken(authorization as string);
-  console.log(token);
-  if (!token) throw new Error(ErrorTypes.invalidToken);
+  decodedToken(authorization as string);
   next();
 };
 

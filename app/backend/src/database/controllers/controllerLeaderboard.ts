@@ -10,6 +10,12 @@ const createLeaderboard = async (req: Request, res: Response) => {
   return res.status(200).json(leaderboard);
 };
 
+const lbHomeAndAway = async (_req: Request, res: Response) => {
+  const leaderboard = await servideLeaderboard.lbHomeAndAway();
+  return res.status(200).json(leaderboard);
+};
+
 export default {
   createLeaderboard,
+  lbHomeAndAway,
 };

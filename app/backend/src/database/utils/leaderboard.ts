@@ -39,7 +39,8 @@ const filterByType = (matches: IMatches[], id:number, type: string) => {
     return matches.filter(({ awayTeam }) => awayTeam === id);
   } else if (type === 'home') {
     return matches.filter(({ homeTeam }) => homeTeam === id);
-  } else { return matches };
+  } else { return matches
+    .filter(({ homeTeam, awayTeam }) => homeTeam === id || awayTeam === id)};
 };
 
 export const returnLbByType = async (type: string) => {
@@ -57,7 +58,6 @@ export const returnLbByType = async (type: string) => {
     let goalsBalance = 0;
     let efficiency = 0;
     let filtered = filterByType(matches, id, type);
-
     filtered.forEach(({ homeTeamGoals, awayTeamGoals }) => {
       const points = matchesPoints(homeTeamGoals, awayTeamGoals, type);
       totalPoints += points;
@@ -84,6 +84,29 @@ export const returnLbByType = async (type: string) => {
     };
   });
   return lbResult;
+};
+
+export const returnHomeAndAway = async () => {
+  const home = await returnLbByType('home');
+  const away = await returnLbByType('away');
+  const lbHomeAndAway = home.map((homeTeam) => {
+    const [filtered] = away.filter((awayTeam) => awayTeam.name === homeTeam.name);
+    const totalPoints = homeTeam.totalPoints + filtered.totalPoints;
+    const totalGames = homeTeam.totalGames + filtered.totalGames;
+    return {
+      name: homeTeam.name,
+      totalPoints,
+      totalGames,
+      totalVictories: homeTeam.totalVictories + filtered.totalVictories,
+      totalDraws: homeTeam.totalDraws + filtered.totalDraws,
+      totalLosses: homeTeam.totalLosses + filtered.totalLosses,
+      goalsFavor: homeTeam.goalsFavor + filtered.goalsFavor,
+      goalsOwn: homeTeam.goalsOwn + filtered.goalsOwn,
+      goalsBalance: homeTeam.goalsBalance + filtered.goalsBalance,
+      efficiency: teamEfficiency(totalPoints, totalGames),
+    };
+  });
+  return lbHomeAndAway;
 };
 
 export const sortedBoard = (learderboard: ILeaderboard[]) => {

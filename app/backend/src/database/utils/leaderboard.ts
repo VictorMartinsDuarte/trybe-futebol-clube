@@ -1,6 +1,7 @@
 import Matches from '../models/Matches';
 import serviceTeams from '../services/serviceTeams';
 import ILeaderboard from '../interfaces/iLeaderboard';
+import IMatches from '../interfaces/iMatches';
 
 const matchesPoints = (homeTeamGoals: number, awayTeamGoals: number, type: string) => {
   if (homeTeamGoals === awayTeamGoals) return 1;
@@ -8,7 +9,10 @@ const matchesPoints = (homeTeamGoals: number, awayTeamGoals: number, type: strin
     if (homeTeamGoals > awayTeamGoals) return 3;
     return 0;
   }
-  if (type === 'away') return 3;
+  if (type === 'away') {
+    if (awayTeamGoals > homeTeamGoals) return 3;
+    return 0;
+  }
   return 0;
 };
 
@@ -30,6 +34,14 @@ const returnOwn = (home: number, away: number, type: string) => {
   return home;
 };
 
+const filterByType = (matches: IMatches[], id:number, type: string) => {
+  if (type === 'away') {
+    return matches.filter(({ awayTeam }) => awayTeam === id);
+  } else if (type === 'home') {
+    return matches.filter(({ homeTeam }) => homeTeam === id);
+  } else { return matches };
+};
+
 export const returnLbByType = async (type: string) => {
   const matches = await returnFinishedMatches();
   const teams = await serviceTeams.getAllTeams();
@@ -44,7 +56,8 @@ export const returnLbByType = async (type: string) => {
     let goalsOwn = 0;
     let goalsBalance = 0;
     let efficiency = 0;
-    const filtered = matches.filter(({ homeTeam }) => homeTeam === id);
+    let filtered = filterByType(matches, id, type);
+
     filtered.forEach(({ homeTeamGoals, awayTeamGoals }) => {
       const points = matchesPoints(homeTeamGoals, awayTeamGoals, type);
       totalPoints += points;

@@ -26,7 +26,7 @@ Matches.init({
   inProgress: {
     type: BOOLEAN,
     defaultValue: true,
-  }
+  },
 }, {
   underscored: true,
   sequelize: db,

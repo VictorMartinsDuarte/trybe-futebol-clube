@@ -1,5 +1,5 @@
 import { JwtPayload } from "jsonwebtoken";
-import IUser from '../../database/interfaces/iUser';
+// import IUser from '../../database/interfaces/iUser';
 
 export const userToken = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
 .eyJkYXRhIjoidXNlckB1c2VyLmNvbSIsImlhdCI6MTY1ODM2MTA1MCwiZXhwIjoxNjU4MzY0NjUwfQ
